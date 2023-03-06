@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Crack the Code</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.cdnfonts.com/css/blocky" rel="stylesheet">
+        <style>
+            @import url('https://fonts.cdnfonts.com/css/blocky');
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            Can you crack the code?
+        </div>
+        <div class="container">
+            <div id="guessContainer">
+                <div id="numbersContainer">
+                    <input type="number" id="firstN" class="numbers" min="0" max="9">
+                    <input type="number" id="secondN" class="numbers" min="0" max="9">
+                    <input type="number" id="thirdN" class="numbers" min="0" max="9">
+                </div>
+                <input type="submit" id="submit">
+            </div> 
+            <div class="guessResults">
+                <div class="rowOne">
+                    <div id="firstResult" class="rowOneResults">1</div>
+                    <div id="secondResult" class="rowOneResults">2</div>
+                    <div id="thirdResult" class="rowOneResults">3</div>
+                    <div id="rowOneClue" class="clueContainer"># correct and in the right spot</div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">Made by Kuni</footer>
+    </body>
+    <script src="script.js"></script>
+</html>
