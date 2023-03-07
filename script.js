@@ -12,26 +12,19 @@ const resultsRow = document.querySelector('.guessResults');
 
 
 const numbers = [0,1,2,3,4,5,6,7,8,9];
-const correctPlace = " correct and in the right spot. ";
-const incorrectPlace = " correct but in the wrong spot.";
 const wrong = "All incorrect!";
 const winMessage = "Congrats! You've unlocked the code!"
-
-resultOne.textContent = 6;
-resultTwo.textContent = 0;
-resultThree.textContent = 9;
 
 
 let guessArray = [];
 
 //loads page with lock code of 3 digits
-let lockN = 3;
 let lockArray = numbers.sort(() => 0.5 - Math.random());
-let lockCode = lockArray.slice(0, lockN);
+let lockCode = lockArray.slice(0, 3);
 
 function resetLock() {
     lockArray = numbers.sort(() => 0.5 - Math.random());
-    lockCode = lockArray.slice(0, lockN);
+    lockCode = lockArray.slice(0, 3);
 }
 
 function getInputValue() {
@@ -57,6 +50,10 @@ function getInputValue() {
     }
 };
 
+let correctResult = 0;
+let incorrectResult = 0;
+
+
 function compareArrays() {
     let sumCorrectPlace = 0;
     let sumIncorrectPlace = 0;
@@ -68,30 +65,33 @@ function compareArrays() {
         } 
     };
 
-    if (sumCorrectPlace === 3) {
-        clueHere.textContent = winMessage;
-    } else if (sumCorrectPlace > 0 && sumIncorrectPlace > 0) {
-        clueHere.textContent = sumCorrectPlace + " correct and in the right spot. " + sumIncorrectPlace + " correct but in the wrong spot.";
-    } else if (sumCorrectPlace > 0 && sumCorrectPlace === 0) {
-        clueHere.textContent = sumCorrectPlace + " correct and in the right spot.";
-    } else if (sumCorrectPlace === 0 && sumIncorrectPlace > 0) {
-        clueHere.textContent = sumIncorrectPlace +  " correct but in the wrong spot.";
-    } else if (sumCorrectPlace === 0 && sumCorrectPlace === 0) {
-        clueHere.textContent = wrong;
-    }
     console.log("sumCorrectPlace is " + sumCorrectPlace);
     console.log("sumIncorrectPlace is " + sumIncorrectPlace);
 
-    if (sumCorrectPlace < 3) {
+    correctResult = sumCorrectPlace;
+    incorrectResult = sumIncorrectPlace;
+
+    returnMessage();
+
+    if (correctResult < 3) {
         createRow()
     };
 
-    //compare guessArray with lockCode
-    //find equal values and their indexes
-    //if equal values in the same index, return correctPlace
-    //if equal values in different indexes, return incorrectPlace
-    //if all values are equal to each other in the same index, return win message and reset lockCode
 };
+
+function returnMessage() {
+    if (correctResult === 3) {
+        clueHere.textContent = winMessage;
+    } else if (correctResult > 0 && incorrectResult > 0) {
+        clueHere.textContent = correctResult + " correct and in the right spot. " + incorrectResult + " correct but in the wrong spot.";
+    } else if (correctResult > 0 && incorrectResult === 0) {
+        clueHere.textContent = correctResult + " correct and in the right spot.";
+    } else if (correctResult === 0 && incorrectResult > 0) {
+        clueHere.textContent = incorrectResult +  " correct but in the wrong spot.";
+    } else if (correctResult === 0 && incorrectResult === 0) {
+        clueHere.textContent = wrong;
+    }
+}
 
 function createRow() {
     let resultContainer = document.createElement("div");
@@ -126,4 +126,23 @@ function createRow() {
     - number of lines it took to complete
     - time it took
 8. Allow user to change number of digits to unlock between 2-10 digits
+
+BUGS/TO-DO
+- for some reason, results aren't consistently displayed correctly and often returns "All incorrect!" despite 
+    there being correct answers submitted
+- figure out how to populate new rows with additional submissions and clues
+    -might need to erase first result row and let each new row populate with each submission button
+
+function submitCode () {
+    - call getInputValue function
+        - getInputValue calls createRow function, must use argument?
+        - input values are appended to new row
+    - call compareArray function
+    - call returnMessage function and appends clues to new row
+    - call checkWin function
+        - checks to see if game is won, and if so, call resetLock function
+        - if won, stops timer
+
+};
+
 */
