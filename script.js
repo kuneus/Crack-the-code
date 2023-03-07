@@ -3,9 +3,10 @@ const guessOne = document.getElementById('firstN');
 const guessTwo = document.getElementById('secondN');
 const guessThree = document.getElementById('thirdN');
 const submit = document.getElementById('submit')
-const rowOneNumberOne = document.getElementById('firstResult');
-const rowOneNumberTwo = document.getElementById('secondResult');
-const rowOneNumberThree = document.getElementById('thirdResult');
+const resultOne = document.getElementById('firstResult');
+const resultTwo = document.getElementById('secondResult');
+const resultThree = document.getElementById('thirdResult');
+const clueHere = document.getElementById('rowOneClue');
 
 
 
@@ -13,21 +14,79 @@ const numbers = [0,1,2,3,4,5,6,7,8,9];
 const correctPlace = " correct and in the right spot. ";
 const incorrectPlace = " correct but in the wrong spot.";
 const wrong = "All incorrect!";
+const winMessage = "Congrats! You've unlocked the code!"
 
-rowOneNumberOne.textContent = 6;
-rowOneNumberTwo.textContent = 0;
-rowOneNumberThree.textContent = 9;
+resultOne.textContent = 6;
+resultTwo.textContent = 0;
+resultThree.textContent = 9;
 
-function getGuess(one, two, three) {
-    one = guessOne.textContent;
-    two = guessTwo.textContent;
-    three = guessThree.textContent;
+
+let guessArray = [];
+
+//loads page with lock code of 3 digits
+let lockN = 3;
+let lockArray = numbers.sort(() => 0.5 - Math.random());
+let lockCode = lockArray.slice(0, lockN);
+
+function resetLock() {
+    lockArray = numbers.sort(() => 0.5 - Math.random());
+    lockCode = lockArray.slice(0, lockN);
 }
 
-submit.addEventListener('click', function(){
-    console.log("hello world!");
-});
+function getInputValue() {
+    let one = guessOne.valueAsNumber;
+    let two = guessTwo.valueAsNumber;
+    let three = guessThree.valueAsNumber;
+    guessArray = [];
 
+    if (!isNaN(one) && !isNaN(two) && !isNaN(three)) {
+        if (one > 9 || two > 9 || three > 9) {
+            alert("ERROR: guesses must be single digits");
+        } else {
+            resultOne.textContent = one;
+            resultTwo.textContent = two;
+            resultThree.textContent = three;
+            guessArray.push(one);
+            guessArray.push(two);
+            guessArray.push(three);
+            console.log(guessArray);
+        }
+    } else {
+        alert("Make sure to submit 3 numbers")
+    }
+};
+
+function compareArrays() {
+    let sumCorrectPlace = 0;
+    let sumIncorrectPlace = 0;
+    for (let i = 0; i < guessArray.length; i++){
+        if (guessArray[i] === lockCode[i]) {
+            sumCorrectPlace += 1;
+        } else if (lockCode.includes(guessArray[i]) && guessArray[i] !== lockCode[i]) {
+            sumIncorrectPlace += 1;
+        } 
+    };
+
+    if (sumCorrectPlace === 3) {
+        clueHere.textContent = winMessage;
+    } else if (sumCorrectPlace > 0 && sumIncorrectPlace > 0) {
+        clueHere.textContent = sumCorrectPlace + " correct and in the right spot. " + sumIncorrectPlace + " correct but in the wrong spot.";
+    } else if (sumCorrectPlace > 0 && sumCorrectPlace === 0) {
+        clueHere.textContent = sumCorrectPlace + " correct and in the right spot.";
+    } else if (sumCorrectPlace === 0 && sumIncorrectPlace > 0) {
+        clueHere.textContent = sumIncorrectPlace +  " correct but in the wrong spot.";
+    } else if (sumCorrectPlace === 0 && sumCorrectPlace === 0) {
+        clueHere.textContent = wrong;
+    }
+    console.log("sumCorrectPlace is " + sumCorrectPlace);
+    console.log("sumIncorrectPlace is " + sumIncorrectPlace);
+
+    //compare guessArray with lockCode
+    //find equal values and their indexes
+    //if equal values in the same index, return correctPlace
+    //if equal values in different indexes, return incorrectPlace
+    //if all values are equal to each other in the same index, return win message and reset lockCode
+};
 
 
 /* PSEUDOCODE
