@@ -61,6 +61,7 @@ body {
     flex-direction: row;
     width: 600px;
     gap: 5px;
+    border: solid 1px red;
 
 }
 
@@ -73,12 +74,14 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(235, 235, 235);
-    margin-bottom: 5px;
+    margin: 5px;
 }
 
 .clueContainer {
-    text-align: center;
-    padding: 40px 10px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
