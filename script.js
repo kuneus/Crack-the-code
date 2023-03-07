@@ -7,6 +7,7 @@ const resultOne = document.getElementById('firstResult');
 const resultTwo = document.getElementById('secondResult');
 const resultThree = document.getElementById('thirdResult');
 const clueHere = document.getElementById('rowOneClue');
+const resultsRow = document.querySelector('.guessResults');
 
 
 
@@ -81,12 +82,32 @@ function compareArrays() {
     console.log("sumCorrectPlace is " + sumCorrectPlace);
     console.log("sumIncorrectPlace is " + sumIncorrectPlace);
 
+    if (sumCorrectPlace < 3) {
+        createRow()
+    };
+
     //compare guessArray with lockCode
     //find equal values and their indexes
     //if equal values in the same index, return correctPlace
     //if equal values in different indexes, return incorrectPlace
     //if all values are equal to each other in the same index, return win message and reset lockCode
 };
+
+function createRow() {
+    let resultContainer = document.createElement("div");
+    resultContainer.classList.add('rowOne');
+    resultsRow.appendChild(resultContainer);
+
+    for (let i = 1; i <= 3; i++) {
+        let resultBox = document.createElement("div");
+        resultBox.classList.add('rowOneResults');
+        resultContainer.appendChild(resultBox);
+    };
+
+    let hintBox = document.createElement("div");
+    hintBox.classList.add('clueContainer');
+    resultContainer.appendChild(hintBox);
+}
 
 
 /* PSEUDOCODE

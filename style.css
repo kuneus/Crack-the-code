@@ -61,6 +61,7 @@ body {
     flex-direction: row;
     width: 600px;
     gap: 5px;
+
 }
 
 .rowOneResults {
@@ -72,6 +73,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(235, 235, 235);
+    margin-bottom: 5px;
 }
 
 .clueContainer {
