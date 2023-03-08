@@ -14,20 +14,35 @@
             Can you crack the code?
         </div>
         <div class="container">
-            <div id="guessContainer">
-                <div id="numbersContainer">
-                    <input type="number" id="firstN" class="numbers" min="0" max="9">
-                    <input type="number" id="secondN" class="numbers" min="0" max="9">
-                    <input type="number" id="thirdN" class="numbers" min="0" max="9">
-                </div>
-                <input type="submit" id="submit" onclick="getInputV2()">
-            </div> 
+            <div id="rules">
+                How to Play:
+                <ol>
+                    <li>Guess three numbers in the lock.</li>
+                    <li>You can only guess numbers from 0 - 9.</li>
+                    <li>The code does not contain duplicate numbers, thus numbers are only used once. You are welcome to submit duplicate numbers within a guess, although it doesn't help. </li>
+                    <li>Clues will be provided with each submission</li>
+                    <li>Try to crack the code in as few submissions as you can and as fast as you can</li>
+                </ol>
+            </div>
+            <div id="middleContainer">
+                <div id="guessContainer">
+                    <div id="numbersContainer">
+                        <input type="number" id="firstN" class="numbers" min="0" max="9">
+                        <input type="number" id="secondN" class="numbers" min="0" max="9">
+                        <input type="number" id="thirdN" class="numbers" min="0" max="9">
+                    </div>
+                    <input type="submit" id="submit" onclick="getInputV2()">
+                </div> 
+                <div class="stats">Current number of tries:  <span id="lineScore">0</span></div>
+                <div class="stats">Average number of tries per lock:  <span id="avgLines">0</span></div>
+                <div class="stats">Total locks opened:  <span id="locksOpen">0</span></div>
+            </div>
             <div class="guessResults">
                 <div class="rowOne">
-
                 </div>
             </div>
         </div>
+
         <footer class="footer">Made by Kuni</footer>
     </body>
     <script src="script.js"></script>

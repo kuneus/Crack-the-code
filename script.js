@@ -8,6 +8,11 @@ const resultTwo = document.getElementById('secondResult');
 const resultThree = document.getElementById('thirdResult');
 const clueHere = document.getElementById('rowOneClue');
 const resultsRow = document.querySelector('.guessResults');
+const lineScore = document.getElementById('lineScore');
+const avgLines = document.getElementById('avgLines');
+const rowOneResults = document.getElementsByClassName('rowOneResults');
+const clueContainer = document.getElementsByClassName('clueContainer');
+const locksOpen = document.getElementById('locksOpen');
 
 
 
@@ -22,14 +27,15 @@ let guessArray = [];
 let lockArray = numbers.sort(() => 0.5 - Math.random());
 let lockCode = lockArray.slice(0, 3);
 
-function resetLock() {
-    lockArray = numbers.sort(() => 0.5 - Math.random());
-    lockCode = lockArray.slice(0, 3);
-}
 
+
+function startTimer () {
+
+}
 
 let correctResult = 0;
 let incorrectResult = 0;
+
 
 function getInputV2() {
     let one = guessOne.valueAsNumber;
@@ -39,25 +45,75 @@ function getInputV2() {
 
     if (!isNaN(one) && !isNaN(two) && !isNaN(three)) {
         if (one > 9 || two > 9 || three > 9) {
-            alert("ERROR: guesses must be single digits");
+            alert("ERROR: guesses must be less than 10!");
+        } else if (correctResult ===3) {
+            resetLock();
         } else {
             guessArray.push(one);
             guessArray.push(two);
             guessArray.push(three);
             console.log(guessArray);
+            compareArraysV2();
+            createRowV2();
         }
     } else {
         alert("Make sure to submit 3 numbers")
     }
 
-    compareArraysV2();
-    createRowV2();
+    if (scoreArray.length > 0) {
+        getAvgScore();
+        locksOpen.textContent = scoreArray.length;
+    }
 };
+
+function resetLock() {
+    lockArray = numbers.sort(() => 0.5 - Math.random());
+    lockCode = lockArray.slice(0, 3);
+    guessOne.value = null;
+    guessTwo.value = null;
+    guessThree.value = null;
+    correctResult = 0;
+    currentTries = 0;
+    lineScore.textContent = 0;
+    document.querySelectorAll(".rowOne").forEach(el => el.remove());
+    document.querySelectorAll(".clueContainer").forEach(el => el.remove());
+    submit.value = 'Submit';
+}
+
+
+let resultContainer = document.createElement("div");
+resultContainer.classList.add('rowOne');
+let resultBox = document.createElement("div");
+resultBox.classList.add('rowOneResults');
+let hintBox = document.createElement("div");
+hintBox.classList.add('clueContainer');
+
+let currentTries = 0;
+let scoreArray = [];
+let avg = 0;
+
+function getAvgScore () {
+    let sum = 0;
+    for (let i = 0; i < scoreArray.length; i++) {
+        sum += scoreArray[i];
+    }
+
+    console.log("sum is equal to " + sum);
+    let avg = sum / scoreArray.length;
+    let roundAvg = Math.round(avg * 100)/100;
+
+    if (roundAvg > 0) {
+        avgLines.textContent = roundAvg;
+    } else {
+        avgLines.textContent = '';
+    }
+}
+
 
 function createRowV2() {
     let resultContainer = document.createElement("div");
     resultContainer.classList.add('rowOne');
-    resultsRow.appendChild(resultContainer);
+    resultsRow.prepend(resultContainer);
 
     for (let i = 0; i <= 2; i++) {
         let resultBox = document.createElement("div");
@@ -69,8 +125,13 @@ function createRowV2() {
     let hintBox = document.createElement("div");
     hintBox.classList.add('clueContainer');
 
+    currentTries += 1;
+    lineScore.textContent = currentTries;
+
     if (correctResult === 3) {
         hintBox.textContent = winMessage;
+        scoreArray.push(currentTries);
+        submit.value = "Reset";
     } else if (correctResult > 0 && incorrectResult > 0) {
         hintBox.textContent = correctResult + " correct and in the right spot. " + incorrectResult + " correct but in the wrong spot.";
     } else if (correctResult > 0 && incorrectResult === 0) {
@@ -124,21 +185,14 @@ function compareArraysV2() {
 
 BUGS/TO-DO
 - for some reason, results aren't consistently displayed correctly and often returns "All incorrect!" despite 
-    there being correct answers submitted
-- figure out how to populate new rows with additional submissions and clues
-    -might need to erase first result row and let each new row populate with each submission button
-
-function submitCode () {
-    - call getInputValue function
-        - getInputValue calls createRow function, must use argument?
-        - input values are appended to new row
-    - call compareArray function
-    - call returnMessage function and appends clues to new row
-    - call checkWin function
-        - checks to see if game is won, and if so, call resetLock function
-        - if won, stops timer
-
-};
+    there being correct answers submitted - FIXED
+- figure out how to populate new rows with additional submissions and clues - DONE
+    -might need to erase first result row and let each new row populate with each submission button - DONE
+- Write out rules for playing game
+- Add display for timer
+    - begin timer with the first submission, end timer when the code is unlocked
+- Add display for number of lines
+- Keep track of codes cracked within a page refresh and calculate average number of tries to unlock code
 
 */
 
