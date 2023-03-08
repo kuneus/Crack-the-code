@@ -15,7 +15,7 @@ const numbers = [0,1,2,3,4,5,6,7,8,9];
 const wrong = "All incorrect!";
 const winMessage = "Congrats! You've unlocked the code!"
 
-
+//user's submitted guess goes here
 let guessArray = [];
 
 //loads page with lock code of 3 digits
@@ -27,7 +27,11 @@ function resetLock() {
     lockCode = lockArray.slice(0, 3);
 }
 
-function getInputValue() {
+
+let correctResult = 0;
+let incorrectResult = 0;
+
+function getInputV2() {
     let one = guessOne.valueAsNumber;
     let two = guessTwo.valueAsNumber;
     let three = guessThree.valueAsNumber;
@@ -37,9 +41,6 @@ function getInputValue() {
         if (one > 9 || two > 9 || three > 9) {
             alert("ERROR: guesses must be single digits");
         } else {
-            resultOne.textContent = one;
-            resultTwo.textContent = two;
-            resultThree.textContent = three;
             guessArray.push(one);
             guessArray.push(two);
             guessArray.push(three);
@@ -48,13 +49,42 @@ function getInputValue() {
     } else {
         alert("Make sure to submit 3 numbers")
     }
+
+    compareArraysV2();
+    createRowV2();
 };
 
-let correctResult = 0;
-let incorrectResult = 0;
+function createRowV2() {
+    let resultContainer = document.createElement("div");
+    resultContainer.classList.add('rowOne');
+    resultsRow.appendChild(resultContainer);
 
+    for (let i = 0; i <= 2; i++) {
+        let resultBox = document.createElement("div");
+        resultBox.classList.add('rowOneResults');
+        resultBox.textContent = guessArray[i];
+        resultContainer.appendChild(resultBox);
+    };
 
-function compareArrays() {
+    let hintBox = document.createElement("div");
+    hintBox.classList.add('clueContainer');
+
+    if (correctResult === 3) {
+        hintBox.textContent = winMessage;
+    } else if (correctResult > 0 && incorrectResult > 0) {
+        hintBox.textContent = correctResult + " correct and in the right spot. " + incorrectResult + " correct but in the wrong spot.";
+    } else if (correctResult > 0 && incorrectResult === 0) {
+        hintBox.textContent = correctResult + " correct and in the right spot.";
+    } else if (correctResult === 0 && incorrectResult > 0) {
+        hintBox.textContent = incorrectResult +  " correct but in the wrong spot.";
+    } else if (correctResult === 0 && incorrectResult === 0) {
+        hintBox.textContent = wrong;
+    }
+
+    resultContainer.appendChild(hintBox);
+}
+
+function compareArraysV2() {
     let sumCorrectPlace = 0;
     let sumIncorrectPlace = 0;
     for (let i = 0; i < guessArray.length; i++){
@@ -70,44 +100,9 @@ function compareArrays() {
 
     correctResult = sumCorrectPlace;
     incorrectResult = sumIncorrectPlace;
-
-    returnMessage();
-
-    if (correctResult < 3) {
-        createRow()
-    };
-
 };
 
-function returnMessage() {
-    if (correctResult === 3) {
-        clueHere.textContent = winMessage;
-    } else if (correctResult > 0 && incorrectResult > 0) {
-        clueHere.textContent = correctResult + " correct and in the right spot. " + incorrectResult + " correct but in the wrong spot.";
-    } else if (correctResult > 0 && incorrectResult === 0) {
-        clueHere.textContent = correctResult + " correct and in the right spot.";
-    } else if (correctResult === 0 && incorrectResult > 0) {
-        clueHere.textContent = incorrectResult +  " correct but in the wrong spot.";
-    } else if (correctResult === 0 && incorrectResult === 0) {
-        clueHere.textContent = wrong;
-    }
-}
 
-function createRow() {
-    let resultContainer = document.createElement("div");
-    resultContainer.classList.add('rowOne');
-    resultsRow.appendChild(resultContainer);
-
-    for (let i = 1; i <= 3; i++) {
-        let resultBox = document.createElement("div");
-        resultBox.classList.add('rowOneResults');
-        resultContainer.appendChild(resultBox);
-    };
-
-    let hintBox = document.createElement("div");
-    hintBox.classList.add('clueContainer');
-    resultContainer.appendChild(hintBox);
-}
 
 
 /* PSEUDOCODE
@@ -146,3 +141,7 @@ function submitCode () {
 };
 
 */
+
+
+
+
