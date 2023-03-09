@@ -19,7 +19,7 @@ body {
     height: 85%;
 }
 
-#rules {
+#leftContainer {
     width: 30%;
     font-size: 20px;
     border: 10px ridge gold;
@@ -27,6 +27,23 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#rulesHeader {
+    height: 10%;
+    border: solid 2px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+#rules {
+    height: 90%;
+    border: solid 2px black;
+    display: flex;
+    align-items: center;
+
 }
 
 #middleContainer {

@@ -46,6 +46,8 @@ function getInputV2() {
     if (!isNaN(one) && !isNaN(two) && !isNaN(three)) {
         if (one > 9 || two > 9 || three > 9) {
             alert("ERROR: guesses must be less than 10!");
+        } else if (guessOne.value.length > 1 || guessTwo.value.length > 1 || guessThree.value.length > 1) {
+            alert("ERROR: only integers from 0-9!")
         } else if (correctResult ===3) {
             resetLock();
         } else {
