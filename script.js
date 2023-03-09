@@ -193,7 +193,8 @@ BUGS/TO-DO
     - begin timer with the first submission, end timer when the code is unlocked
 - Add display for number of lines
 - Keep track of codes cracked within a page refresh and calculate average number of tries to unlock code
-
+- keyboard support
+- only integers 0-9
 */
 
 
