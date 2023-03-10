@@ -6,10 +6,10 @@ body {
 }
 
 .header {
-    font-size: 100px;
+    font-size: 60px;
     text-align: center;
-    margin-bottom: 5px;
-    font-family: 'Blocky', sans-serif;
+    margin-bottom: 20px;
+    font-family: 'Sherlock Display', sans-serif;
 }
 
 .container {
@@ -31,19 +31,39 @@ body {
 
 #rulesHeader {
     height: 10%;
-    border: solid 2px black;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 40px;
+    font-family: 'Sherlock Display';
 }
 
 #rules {
     height: 90%;
-    border: solid 2px black;
     display: flex;
-    align-items: center;
+    align-items:flex-start;
+    font-family: 'Finland Rounded';
+    font-size: 30px;
+    font-style: normal;
+    padding-right: 10px;
+}
 
+li {
+    margin-bottom: 20px;
+    margin-left: 15px;
+    text-indent: -3.5rem;
+    
+}
+
+li::before {
+    content:  "🔑";
+    margin: 10px;
+}
+
+ol {
+    margin-top: 0px;
+    list-style: none;
+    list-style-position: outside;
 }
 
 #middleContainer {
@@ -92,15 +112,29 @@ body {
 }
 
 .stats {
-    width: 100%;
-    padding-left: 40px;
+    width: 86%;
+    padding-left: 0px;
+    font-family: 'Finland Rounded';
+    font-size: 27px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span {
+    background-color: rgb(235, 235, 235);
+    border: solid 1px black;
+    font-size: 35px;
+    border: solid rgb(255, 199, 58) 3px;
+    padding: 3px;
+    
 }
 
 #rightContainer {
     width: 30%;
     font-size: 40px;
     text-align: center;
-    font-family: 'Roar';
+    font-family: 'Sherlock Display', sans-serif;
     background-color: rgb(251, 249, 211);
     border: 10px ridge gold;
     padding: 5px;
@@ -145,14 +179,15 @@ body {
     justify-content: center;
     align-items: center;
     margin-right: 8px;
+    font-family: 'Finland Rounded';
+    font-size: 30px;
 }
-
 
 .footer {
     bottom: 5px;
     left: 15px;
     position: fixed;
-    font-family: 'Blocky';
+    font-family: 'Finland Rounded';
     font-size: 30px;
 }
 
