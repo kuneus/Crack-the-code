@@ -84,7 +84,7 @@ ol {
     height: 100%;
     gap: 10px;
     background-image: url('images/lock.png');
-    background-size: 90%;
+    background-size: 75%;
     background-repeat: no-repeat;
     background-position: bottom center;
     padding-bottom: 20px;
@@ -102,13 +102,23 @@ ol {
 }
 
 .numbers {
-    height: 25%;
-    width: 20%;
+    height: 22%;
+    width: 18%;
     font-size: 80px;
     border: solid rgb(255, 199, 58) 5px;
     background-color: rgb(235, 235, 235);
     text-align: center;
     flex-shrink: 1;
+}
+
+#timeContainer {
+    background-color: rgb(235, 235, 235);
+    border: solid 1px black;
+    width: 40%;
+    text-align: center;
+    border: solid rgb(255, 199, 58) 3px;
+    font-family: 'Finland Rounded';
+    font-size: 35px;
 }
 
 .stats {
@@ -121,7 +131,7 @@ ol {
     align-items: center;
 }
 
-span {
+.statNum {
     background-color: rgb(235, 235, 235);
     border: solid 1px black;
     font-size: 35px;

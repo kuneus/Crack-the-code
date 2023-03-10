@@ -13,7 +13,11 @@ const avgLines = document.getElementById('avgLines');
 const rowOneResults = document.getElementsByClassName('rowOneResults');
 const clueContainer = document.getElementsByClassName('clueContainer');
 const locksOpen = document.getElementById('locksOpen');
-
+const minText = document.getElementById('min');
+const secText = document.getElementById('sec');
+const msecText = document.getElementById('count');
+const avgMin = document.getElementById('avgMin');
+const avgSec = document.getElementById('avgSec');
 
 
 const numbers = [0,1,2,3,4,5,6,7,8,9];
@@ -27,10 +31,70 @@ let guessArray = [];
 let lockArray = numbers.sort(() => 0.5 - Math.random());
 let lockCode = lockArray.slice(0, 3);
 
+//for timer
+var minute = 00;
+var second = 00;
+var msec = 00;
+var timer = false;
+var startTime = Date.now();
 
+function startTimer() {
+    timer = true;
+    startTime = Date.now();
+    stopWatch();
+}
 
-function startTimer () {
+function stopWatch() {
+    if (timer) {
+        var elapsedTime = Date.now() - startTime;
+        var minute = Math.floor(elapsedTime / (60 * 1000) % 60).toString().padStart(2, '0');
+        var second = Math.floor(elapsedTime / 1000 % 60).toString().padStart(2, '0');
+        var msec = Math.floor(elapsedTime % 1000).toString().padStart(2, '0');
 
+        document.getElementById('min').textContent = minute;
+        document.getElementById('sec').textContent = second;
+        document.getElementById('count').textContent = msec;
+        setTimeout(stopWatch,10);
+    }
+}
+
+var timeArray = [];
+
+function pauseTimer() {
+    timer = false;
+    var minNum = parseInt(minText.textContent);
+    var secNum = parseInt(secText.textContent);
+    var msecNum = parseInt(msecText.textContent);
+    var sumTime = parseFloat(minNum * 60 + secNum + '.' + msecNum);
+    timeArray.push(sumTime);
+}
+
+function resetTimer() {
+    timer = false;
+    minute = 0;
+    second = 0;
+    count = 0;
+    minText.textContent = "00";
+    secText.textContent = "00";
+    msecText.textContent = "00";
+}
+
+function getAvgTime() {
+    let sum = 0;
+    for (let i = 0; i < timeArray.length; i++) {
+        sum += timeArray[i];
+    }
+
+    let avg = sum / timeArray.length;
+    let roundAvg = Math.round(avg * 100)/100;
+    let roundMin = parseInt(roundAvg / 60);
+    let secRemain = parseFloat(roundAvg % 60)
+    let roundSec = Math.round(secRemain * 100)/100;
+
+    if (avg > 0) {
+        avgMin.textContent = roundMin + ':';
+        avgSec.textContent = roundSec;
+    } 
 }
 
 let correctResult = 0;
@@ -50,6 +114,7 @@ function getInputV2() {
             alert("ERROR: only integers from 0-9!")
         } else if (correctResult ===3) {
             resetLock();
+            resetTimer();
         } else {
             guessArray.push(one);
             guessArray.push(two);
@@ -64,6 +129,7 @@ function getInputV2() {
 
     if (scoreArray.length > 0) {
         getAvgScore();
+        getAvgTime();
         locksOpen.textContent = scoreArray.length;
     }
 };
@@ -127,12 +193,17 @@ function createRowV2() {
     let hintBox = document.createElement("div");
     hintBox.classList.add('clueContainer');
 
+    if (currentTries == 0){
+        startTimer();
+    }
+
     currentTries += 1;
     lineScore.textContent = currentTries;
 
     if (correctResult === 3) {
         hintBox.textContent = winMessage;
         scoreArray.push(currentTries);
+        pauseTimer();
         submit.value = "Reset";
     } else if (correctResult > 0 && incorrectResult > 0) {
         hintBox.textContent = correctResult + " correct and in the right spot. " + incorrectResult + " correct but in the wrong spot.";
