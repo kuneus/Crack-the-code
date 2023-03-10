@@ -15,7 +15,7 @@ const clueContainer = document.getElementsByClassName('clueContainer');
 const locksOpen = document.getElementById('locksOpen');
 const minText = document.getElementById('min');
 const secText = document.getElementById('sec');
-const msecText = document.getElementById('count');
+// const msecText = document.getElementById('count');
 const avgMin = document.getElementById('avgMin');
 const avgSec = document.getElementById('avgSec');
 
@@ -49,11 +49,11 @@ function stopWatch() {
         var elapsedTime = Date.now() - startTime;
         var minute = Math.floor(elapsedTime / (60 * 1000) % 60).toString().padStart(2, '0');
         var second = Math.floor(elapsedTime / 1000 % 60).toString().padStart(2, '0');
-        var msec = Math.floor(elapsedTime % 1000).toString().padStart(2, '0');
+        // var msec = Math.floor(elapsedTime % 1000).toString().padStart(2, '0');
 
         document.getElementById('min').textContent = minute;
         document.getElementById('sec').textContent = second;
-        document.getElementById('count').textContent = msec;
+        // document.getElementById('count').textContent = msec;
         setTimeout(stopWatch,10);
     }
 }
@@ -64,8 +64,8 @@ function pauseTimer() {
     timer = false;
     var minNum = parseInt(minText.textContent);
     var secNum = parseInt(secText.textContent);
-    var msecNum = parseInt(msecText.textContent);
-    var sumTime = parseFloat(minNum * 60 + secNum + '.' + msecNum);
+    // var msecNum = parseInt(msecText.textContent);
+    var sumTime = parseFloat(minNum * 60 + secNum);
     timeArray.push(sumTime);
 }
 
@@ -76,7 +76,7 @@ function resetTimer() {
     count = 0;
     minText.textContent = "00";
     secText.textContent = "00";
-    msecText.textContent = "00";
+    // msecText.textContent = "00";
 }
 
 function getAvgTime() {
@@ -89,11 +89,20 @@ function getAvgTime() {
     let roundAvg = Math.round(avg * 100)/100;
     let roundMin = parseInt(roundAvg / 60);
     let secRemain = parseFloat(roundAvg % 60)
-    let roundSec = Math.round(secRemain * 100)/100;
+    let roundSec = Math.round(secRemain);
 
     if (avg > 0) {
-        avgMin.textContent = roundMin + ':';
+        if (roundMin < 10) {
+            avgMin.textContent = '0' + roundMin + ' : ';
+        } else {
+            avgMin.textContent = roundMin + ' : ';
+        };
+
+        if (roundSec < 10) {
+            avgSec.textContent = '0' + roundSec;
+        } else {
         avgSec.textContent = roundSec;
+        }
     } 
 }
 

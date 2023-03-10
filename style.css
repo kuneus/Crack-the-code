@@ -17,6 +17,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     height: 85%;
+    max-height: 100vh;
 }
 
 #leftContainer {
@@ -116,9 +117,16 @@ ol {
     border: solid 1px black;
     width: 40%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: solid rgb(255, 199, 58) 3px;
-    font-family: 'Finland Rounded';
-    font-size: 35px;
+    font-family: 'Digital Numbers';
+    font-size: 20px;
+}
+
+.txt {
+    font-size: 30px;
 }
 
 .stats {
@@ -134,9 +142,10 @@ ol {
 .statNum {
     background-color: rgb(235, 235, 235);
     border: solid 1px black;
-    font-size: 35px;
+    font-size: 15px;
     border: solid rgb(255, 199, 58) 3px;
     padding: 3px;
+    font-family: 'Digital Numbers';
     
 }
 
