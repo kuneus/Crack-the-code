@@ -1,4 +1,6 @@
 # Crack-the-code
+Live link:  https://kuneus.github.io/Crack-the-code/
+
 This is a puzzle game called Crack The Code. It is my first personal project! 
 
 Crack the Code is a simple game of deductive logic and a little bit of luck. Guess three numbers to unlock the code in as few attempts as possible and be sure to watch the clock, time is ticking! Play a few rounds and see your average attempts and time it takes to unlock each code. 
