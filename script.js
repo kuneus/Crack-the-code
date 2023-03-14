@@ -21,7 +21,7 @@ const avgSec = document.getElementById('avgSec');
 
 const numbers = [0,1,2,3,4,5,6,7,8,9];
 const wrong = "All incorrect!";
-const winMessage = "Congrats! You've unlocked the code!"
+const winMessage = "Congrats! You've unlocked the code!";
 
 //user's submitted guess goes here
 let guessArray = [];
@@ -41,7 +41,7 @@ function startTimer() {
     timer = true;
     startTime = Date.now();
     stopWatch();
-}
+};
 
 function stopWatch() {
     if (timer) {
@@ -52,7 +52,7 @@ function stopWatch() {
         document.getElementById('sec').textContent = second;
         setTimeout(stopWatch,10);
     }
-}
+};
 
 var timeArray = [];
 
@@ -62,7 +62,7 @@ function pauseTimer() {
     var secNum = parseInt(secText.textContent);
     var sumTime = parseFloat(minNum * 60 + secNum);
     timeArray.push(sumTime);
-}
+};
 
 function resetTimer() {
     timer = false;
@@ -71,7 +71,7 @@ function resetTimer() {
     count = 0;
     minText.textContent = "00";
     secText.textContent = "00";
-}
+};
 
 function getAvgTime() {
     let sum = 0;
@@ -98,7 +98,7 @@ function getAvgTime() {
         avgSec.textContent = roundSec;
         }
     } 
-}
+};
 
 let correctResult = 0;
 let incorrectResult = 0;
@@ -230,9 +230,9 @@ function compareArraysV2() {
 
 
 //
-
+//keyboard support for 'Enter' and 'backspace'
 document.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && document.activeElement !== submit) {
         getInputV2();
     }
 
@@ -247,6 +247,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+//keyboard support for number input
 for (let i = 0; i <= 9; i++) {
     document.addEventListener('keydown', function(event) {
         if (document.activeElement !== guessOne && document.activeElement !== guessTwo && document.activeElement !== guessThree) {
@@ -261,8 +262,7 @@ for (let i = 0; i <= 9; i++) {
             }
         }    
     })
-    
-}
+};
 
 
 
@@ -293,8 +293,8 @@ BUGS/TO-DO
     - begin timer with the first submission, end timer when the code is unlocked - DONE
 - Add display for number of lines - DONE
 - Keep track of codes cracked within a page refresh and calculate average number of tries to unlock code - DONE
-- keyboard support - ability to use 'Enter' to submit
-    - Keyboard entry added but now need to prevent double inputs. If input field is selected, allow only a single input
+- keyboard support - ability to use 'Enter' to submit - DONE
+    - Keyboard entry added but now need to prevent double inputs. If input field is selected, allow only a single input - DONE
 - only integers 0-9 - DONE
 
 
